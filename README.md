@@ -21,8 +21,8 @@ EaseMesh is a service mesh that is compatible with the Spring Cloud ecosystem. I
     - [7.1 Start PetClinic in EaseMesh](#71-start-petclinic-in-easemesh)
       - [7.1.1 Step 1: Apply mesh configuration](#711-step-1-apply-mesh-configuration)
       - [7.1.2 Step 2: Create namespace](#712-step-2-create-namespace)
-      - [7.1.3 Step 4: Setup Database](#713-step-4-setup-database)
-      - [7.1.4 Step 3: Apply petclinic stack](#714-step-3-apply-petclinic-stack)
+      - [7.1.3 Step 3: Setup Database](#713-step-3-setup-database)
+      - [7.1.4 Step 4: Apply petclinic stack](#714-step-4-apply-petclinic-stack)
       - [7.1.5 Get exposed port of `EaseMesh ingress` service](#715-get-exposed-port-of-easemesh-ingress-service)
       - [7.1.6 Step 5: Configure reverse proxy](#716-step-5-configure-reverse-proxy)
         - [7.1.6.1 Config reverse proxy via Easegress](#7161-config-reverse-proxy-via-easegress)
@@ -351,7 +351,7 @@ index 360e765..cc2df3d 100644
 
 #### 7.2.4 Step 4: Build canary image
 
-> **ATTENTION**  You can skip the step, we have provides the canary image to docker hub `megaease/spring-petclinic-customers-service:canary` you can found it in the docker hub.
+> **ATTENTION**  You can skip the step, we have provided the canary image to docker hub `megaease/spring-petclinic-customers-service:canary` you can found it in the docker hub.
 
 Building the canary Customer service's image, and update image version in `https://github.com/megaease/easemesh-spring-petclinic/blob/main/canary/customers-service-deployment-canary.yaml`. Or just use our default canary image which already was in it.
 

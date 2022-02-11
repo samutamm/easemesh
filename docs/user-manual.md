@@ -24,14 +24,14 @@
     - [TimeLimiter](#timelimiter)
   - [Observability](#observability)
     - [Tracing](#tracing)
-      - [Turn-on tracing](#turn-on-tracing)
-      - [Turn-off tracing](#turn-off-tracing)
+      - [Turn on tracing](#turn-on-tracing)
+      - [Turn off tracing](#turn-off-tracing)
     - [Metrics](#metrics)
-      - [Turn-on metrics reporting](#turn-on-metrics-reporting)
-      - [Turn-off metrics reporting](#turn-off-metrics-reporting)
+      - [Turn on metrics reporting](#turn-on-metrics-reporting)
+      - [Turn off metrics reporting](#turn-off-metrics-reporting)
     - [Log](#log)
-      - [Turn-on Log](#turn-on-log)
-      - [Turn-off Log](#turn-off-log)
+      - [Turn on Log](#turn-on-log)
+      - [Turn off Log](#turn-off-log)
 
 
 ## Introduction
@@ -62,7 +62,7 @@ A service could have co-exist multiple versions, a version of the service is a [
 The `tenant` is used to group several services of the same business domain. Services can communicate with each other in the same tenant. In EaseMesh, there is a special global tenant that is visible to the entire mesh. Users can put some global, shared services in this special tenant.
 
 > ** Note: **
-> All specs in the EaseMesh are written in Yaml formation
+> All specs in the EaseMesh are written in Yaml format
 
 **Create a tenant for services** You can choose to deploy a new mesh service in an existing tenant, or creating a new one for it. Modify example YAML content below and apply it:
 
@@ -420,9 +420,9 @@ Observability for micro-services in EaseMesh can be cataloged into three areas, 
 
 * EaseMesh relies on `EaseAgent` for non-intrusive collecting span data, and Kafka to store all collected tracing data.
 
-#### Turn-on tracing
+#### Turn on tracing
 
-1. Configuring mesh service's `ObservabilityOutputServer` to enable EaseMesh output tracing related data into Kafka. Modify example YAML below, and apply it
+1. Configure mesh service's `ObservabilityOutputServer` to stream EaseMesh output tracing related data into Kafka. Modify example YAML below, and apply it
 
 ```yaml
  outputServer:
@@ -432,7 +432,7 @@ Observability for micro-services in EaseMesh can be cataloged into three areas, 
 ```
 > OutputServer spec reference: https://github.com/megaease/easemesh-api/blob/master/v1alpha1/meshmodel.md#easemesh.v1alpha1.ObservabilityOutputServer
 
-2. Finding the desired enable tracing service protocol in [ObservabilityTracings](https://github.com/megaease/easemesh-api/blob/master/v1alpha1/meshmodel.md#easemesh.v1alpha1.ObservabilityTracings) structure. For example, turning on the switch in `ObservabilityTracings.remoteInvoke`  can record mesh service's HTTP RPC tracing data. Also, EaseMesh allows users to configure how Java Agent should report tracing data, such as the reporting sample rate, reporting thread numbers in JavaAgent, and so on. **Note: the reporting configuration is global inside one mesh service's tracing** . Modify example YAML below and applying it
+2. Choose the tracing service protocol from options listed in [ObservabilityTracings](https://github.com/megaease/easemesh-api/blob/master/v1alpha1/meshmodel.md#easemesh.v1alpha1.ObservabilityTracings) structure. For example, turning on the switch in `ObservabilityTracings.remoteInvoke`  can record mesh service's HTTP RPC tracing data. Also, EaseMesh allows users to configure how Java Agent should report tracing data, such as the reporting sample rate, reporting thread numbers in JavaAgent, and so on. **Note: the reporting configuration is global inside one mesh service's tracing** . Modify example YAML below and apply it
 
 ```yaml
 tracings:
@@ -468,11 +468,11 @@ tracings:
 
 >ObservabilityTracings spec reference: https://github.com/megaease/easemesh-api/blob/master/v1alpha1/meshmodel.md#easemesh.v1alpha1.ObservabilityTracings
 
-4. Tracing data are organized as spans, each span is stored in the backend storage service, which provides online analysis and computing functions. MegaEase provides a sophisticated view to help users rapidly diagnosing problems. Checking the web console for your mesh service's RPC tracing information:
+3. Tracing data are organized as spans, each span is stored in the backend storage service, which provides online analysis and computing functions. MegaEase provides a sophisticated view to help users rapidly diagnosing problems. Check the web console for your mesh service's RPC tracing information:
 
 ![tracing](../imgs/tracing.png)
 
-#### Turn-off tracing
+#### Turn off tracing
 
 1. If you want to disable tracing for one mesh service, then set this mesh service's global [tracing switch](https://github.com/megaease/easemesh-api/blob/master/v1alpha1/meshmodel.md#easemesh.v1alpha1.ObservabilityTracings) to `off`. For example, you can prepare YAML as below and apply it
 
@@ -487,7 +487,7 @@ tracings:
 
 ```
 
-2. For only disabling one tracing feature for one mesh service, find the corresponding section, then turn off its switch is enough. For example, to shut down one mesh service's Redis tracing feature, you can prepare YAML as bellow and apply it
+1. You can also disable one specific tracing feature by setting `enabled: false` to this feature and `enabled: true` for others. For example, to shut down one mesh service's Redis tracing feature, you can prepare YAML as below and apply it
 
 ```yaml
 tracings:
@@ -521,11 +521,11 @@ tracings:
 
 ### Metrics
 
-* The EaseMesh leverage [EaseAgent( JavaAgent based on Java Byte buddy technology)](https://github.com/megaease/easeagent) to collect mesh services' application metrics in a non-intrusive way. It will collect the data from a service perspective with very low CPU, memory, I/O resource consumption. The supported metric types including:
+* The EaseMesh leverage [EaseAgent( JavaAgent based on Java Byte buddy technology)](https://github.com/megaease/easeagent) to collect mesh services' application metrics in a non-intrusive way. It will collect the data from a service perspective with very low CPU, memory, I/O resource consumption.
 
 * For the metric details for every type, checkout the EaseAgent's [develop-guide.md](https://github.com/megaease/easeagent/blob/master/doc/development-guide.md).
 
-* Here are the metics that EaseMesh already supported:
+* Here are the metrics that EaseMesh already supports:
 
 
 | Name              | Description                                                                                                                                                                                                                                                                                                 |
@@ -540,11 +540,11 @@ tracings:
 | RabbitMq Consumer | The mesh service's RabbitMQ consumer's metics such as rabbit exchange, consumer M1 rate, consumer P99 execution duration and so on.                                                                                                                                                                         |
 | Redis             | The mesh service's Redis client's metics such as redis P25 execution duration, redis M1 count, redis P99 execution duration and so on.                                                                                                                                                                      |
 | MD5 Dictionary    | The mesh service's JDBC statement's complete SQL sentences and MD5 values.                                                                                                                                                                                                                                  |
-#### Turn-on metrics reporting
+#### Turn on metrics reporting
 
 * EaseMesh also reports the mesh service's Metrics into the Kafka used by Tracing. So you can check out how to enable the output Kafka in the Tracing section.
 
-1. Finding the desired enable metrics type in `ObservabilityMetrics` structure. For example, turning on switch in `ObservabilityMetrics.request`  can report mesh service's HTTP request-related metrics.Modify example YAML below and apply it
+1. Choose the metrics type from options listed in  `ObservabilityMetrics` structure. For example, turning on switch in `ObservabilityMetrics.request`  can report mesh service's HTTP request-related metrics. Modify example YAML below and apply it
 
 ```yaml
 metrics:
@@ -593,13 +593,13 @@ metrics:
 
 > Metrics Spec reference: https://github.com/megaease/easemesh-api/blob/master/v1alpha1/meshmodel.md#easemesh.v1alpha1.ObservabilityMetrics
 
-2. Checking the web console for your mesh service's HTTP request metrics
+2. You can now check the web console for your mesh service's HTTP request metrics.
 
 ![metrics](../imgs/metrics.png)
 
-#### Turn-off metrics reporting
+#### Turn off metrics reporting
 
-1. If you want to disable metrics reporting for one mesh service, then set this mesh service's global `metrics reporting switch` to `off`. For example prepare YAML as below and apply it
+1. To disable metrics reporting for one mesh service, set `enabled: false` for this mesh service's global metrics reporting switch. For example prepare YAML as below and apply it
 
 ```yaml
 metrics:
@@ -609,13 +609,13 @@ metrics:
 
 ```
 
-2. For only disabling one type of metrics reporting for one mesh service, find the corresponding section, then turn off its switch is enough. For example, to shut down one mesh service's HTTP request metrics reporting, you can prepare YAML as bellow and apply it
+2. You can also disable one specific metric by setting `enabled: false` to this metric and `enabled: true` for others. For example, to shut down one mesh service's HTTP request metrics reporting, you can prepare YAML as bellow and apply it
 
 ```yaml
 metrics:
   enabled: true                  # the global metrics reporting switch
   access:
-    enabled: false
+    enabled: true
     interval: 30000
     topic: application-log
   request:
@@ -629,10 +629,10 @@ metrics:
 ### Log
 * Access log is also disabled by default in EaseMesh. The access log is used to recording details of HTTP APIs of mesh service been requested.
 
-#### Turn-on Log
+#### Turn on Log
 * EaseMesh also reports the mesh service's Logs into the Kafka used by Tracing. So you can check out how to enable the output Kafka in the Tracing section.
 
-1. Finding the `access` section in [ObservabilityMetrics](https://github.com/megaease/easemesh-api/blob/master/v1alpha1/meshmodel.md#easemesh.v1alpha1.ObservabilityMetrics) structure. Turning on switch in `ObservabilityMetrics.access`  can enable access logging for mesh service's HTTP APIs. Modify example YAML below and apply it
+1. See the `access` section in [ObservabilityMetrics](https://github.com/megaease/easemesh-api/blob/master/v1alpha1/meshmodel.md#easemesh.v1alpha1.ObservabilityMetrics) structure. Turning on switch in `ObservabilityMetrics.access`  enable access logging for mesh service's HTTP APIs. Modify example YAML below and apply it
 
 ```yaml
 metrics:
@@ -681,12 +681,12 @@ metrics:
 
 > AccessLog reference: https://github.com/megaease/easemesh-api/blob/master/v1alpha1/meshmodel.md#easemesh.v1alpha1.ObservabilityMetrics
 
-2. Checking the web console for your mesh service's HTTP log
+2. You can now check the web console's `Access` tab for your mesh service's HTTP log
 
 ![access log](../imgs/accesslog.png)
 
 
-#### Turn-off Log
+#### Turn off Log
 1. For disabling access logging for one mesh service, find the `access` section, then turn off its switch. For example, to shut down one mesh service's HTTP APIs' logging, you can modify YAML as bellow and apply it
 
 ```yaml
